@@ -1,65 +1,89 @@
-import Image from "next/image";
+import Link from "next/link"
+import { ArrowRight, MessageSquare, Settings, Zap } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
+    <div className="container mx-auto px-4 py-8">
+      <div className="max-w-4xl mx-auto">
+        <div className="text-center mb-12">
+          <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
+            Work Bot
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          <p className="text-xl text-muted-foreground mb-8">
+            智能工作助手，帮助前端开发者提高工作效率
           </p>
+          <div className="flex gap-4 justify-center">
+            <Link href="/chat">
+              <Button size="lg" className="gap-2">
+                <MessageSquare className="h-5 w-5" />
+                开始对话
+                <ArrowRight className="h-4 w-4" />
+              </Button>
+            </Link>
+            <Link href="/settings">
+              <Button size="lg" variant="outline" className="gap-2">
+                <Settings className="h-5 w-5" />
+                设置
+              </Button>
+            </Link>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+        <div className="grid md:grid-cols-3 gap-6">
+          <Card>
+            <CardHeader>
+              <Zap className="h-10 w-10 text-primary mb-2" />
+              <CardTitle>智能对话</CardTitle>
+              <CardDescription>
+                与 AI 助手进行自然对话，快速解决问题
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Link href="/chat">
+                <Button variant="ghost" className="w-full">
+                  立即体验
+                </Button>
+              </Link>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <MessageSquare className="h-10 w-10 text-primary mb-2" />
+              <CardTitle>代码生成</CardTitle>
+              <CardDescription>
+                自动生成组件、页面和 API 类型定义
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Link href="/chat">
+                <Button variant="ghost" className="w-full">
+                  查看示例
+                </Button>
+              </Link>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <Settings className="h-10 w-10 text-primary mb-2" />
+              <CardTitle>个性化设置</CardTitle>
+              <CardDescription>
+                自定义主题、配置 API 密钥等个性化选项
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Link href="/settings">
+                <Button variant="ghost" className="w-full">
+                  前往设置
+                </Button>
+              </Link>
+            </CardContent>
+          </Card>
         </div>
-      </main>
+      </div>
     </div>
-  );
+  )
 }
