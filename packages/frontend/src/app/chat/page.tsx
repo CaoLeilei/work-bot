@@ -66,7 +66,7 @@ export default function ChatPage() {
 
         <div className="flex-1 flex flex-col gap-4 min-h-0">
           <ScrollArea className="flex-1 rounded-lg border p-4">
-            <div className="space-y-4">
+            <div className="space-y-2">
               {messages.map((message) => (
                 <div
                   key={message.id}
@@ -81,8 +81,8 @@ export default function ChatPage() {
                         : "bg-muted"
                     }`}
                   >
-                    <div className="p-4">
-                      <p className="whitespace-pre-wrap">{message.content}</p>
+                    <div className="p-3">
+                      <p className="whitespace-pre-wrap text-sm">{message.content}</p>
                     </div>
                   </Card>
                 </div>
@@ -90,8 +90,8 @@ export default function ChatPage() {
               {isLoading && (
                 <div className="flex justify-start">
                   <Card className="bg-muted max-w-[80%]">
-                    <div className="p-4">
-                      <p className="text-muted-foreground">正在思考...</p>
+                    <div className="p-3">
+                      <p className="text-muted-foreground text-sm">正在思考...</p>
                     </div>
                   </Card>
                 </div>
