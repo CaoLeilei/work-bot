@@ -15,30 +15,19 @@ interface MenuItem {
 
 const menuItems: MenuItem[] = [
   {
-    title: "首页",
-    path: "/",
-    icon: <span className="text-lg">🏠</span>,
+    title: "智能对话",
+    path: "/chat",
+    icon: <span className="text-lg">💬</span>,
   },
   {
     title: "项目管理",
     path: "/projects",
     icon: <span className="text-lg">📁</span>,
-    children: [
-      { title: "新建项目", path: "/projects/new" },
-      { title: "项目列表", path: "/projects" },
-      { title: "项目详情", path: "/projects/detail" },
-      { title: "项目设置", path: "/projects/settings" },
-    ],
   },
   {
     title: "任务管理",
     path: "/tasks",
     icon: <span className="text-lg">✅</span>,
-  },
-  {
-    title: "成员管理",
-    path: "/members",
-    icon: <span className="text-lg">👥</span>,
   },
   {
     title: "常用工具",
@@ -80,6 +69,16 @@ export function Sidebar() {
     return pathname.startsWith(path)
   }
 
+  const handleMenuClick = (item: MenuItem) => {
+    const hasChildren = item.children && item.children.length > 0
+    if (hasChildren) {
+      toggleMenu(item.title)
+    } else if (item.path) {
+      // 有子菜单但点击时跳转到主页面
+      window.location.href = item.path
+    }
+  }
+
   return (
     <aside className="fixed left-0 top-16 h-[calc(100vh-4rem)] w-64 border-r bg-background z-40">
       <nav className="h-full px-3 py-4 space-y-1 overflow-y-auto">
@@ -91,11 +90,10 @@ export function Sidebar() {
           return (
             <div key={item.title}>
               <button
-                onClick={() => hasChildren && toggleMenu(item.title)}
+                onClick={() => handleMenuClick(item)}
                 className={cn(
                   "w-full flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg transition-colors hover:bg-accent",
-                  active && "bg-accent text-accent-foreground",
-                  !hasChildren && "hover:text-accent-foreground"
+                  active && "bg-accent text-accent-foreground"
                 )}
               >
                 {item.icon}

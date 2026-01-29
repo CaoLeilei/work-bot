@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { ArrowRight, MessageSquare, Settings, Zap, FolderOpen, Users, Wrench, History } from "lucide-react"
+import { Settings, Zap, FolderOpen, Wrench, History, Sparkles } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 
@@ -16,14 +16,13 @@ export default function Home() {
           </p>
           <Link href="/chat">
             <Button size="lg" className="gap-2">
-              <MessageSquare className="h-5 w-5" />
+              <Sparkles className="h-5 w-5" />
               开始对话
-              <ArrowRight className="h-4 w-4" />
             </Button>
           </Link>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           <Card>
             <CardHeader>
               <FolderOpen className="h-10 w-10 text-primary mb-2" />
@@ -36,40 +35,6 @@ export default function Home() {
               <Link href="/projects">
                 <Button variant="ghost" className="w-full">
                   查看项目
-                </Button>
-              </Link>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <Zap className="h-10 w-10 text-primary mb-2" />
-              <CardTitle>智能对话</CardTitle>
-              <CardDescription>
-                与 AI 助手进行自然对话，快速解决问题
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Link href="/chat">
-                <Button variant="ghost" className="w-full">
-                  立即体验
-                </Button>
-              </Link>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <Users className="h-10 w-10 text-primary mb-2" />
-              <CardTitle>成员管理</CardTitle>
-              <CardDescription>
-                管理团队成员，分配角色和权限
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Link href="/members">
-                <Button variant="ghost" className="w-full">
-                  管理成员
                 </Button>
               </Link>
             </CardContent>
@@ -123,6 +88,36 @@ export default function Home() {
                   前往设置
                 </Button>
               </Link>
+            </CardContent>
+          </Card>
+
+          <Card className="md:col-span-2">
+            <CardHeader>
+              <Zap className="h-10 w-10 text-primary mb-2" />
+              <CardTitle>快速开始</CardTitle>
+              <CardDescription>
+                智能对话功能可以直接帮助您完成各种任务
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-2">
+                <div className="flex items-center gap-2 text-sm">
+                  <span className="w-2 h-2 rounded-full bg-primary"></span>
+                  <span>发送 "请上传文件" - 触发文件上传</span>
+                </div>
+                <div className="flex items-center gap-2 text-sm">
+                  <span className="w-2 h-2 rounded-full bg-primary"></span>
+                  <span>发送 "展示图片" - 查看图片展示</span>
+                </div>
+                <div className="flex items-center gap-2 text-sm">
+                  <span className="w-2 h-2 rounded-full bg-primary"></span>
+                  <span>发送 "生成代码" - 获取代码示例</span>
+                </div>
+                <div className="flex items-center gap-2 text-sm">
+                  <span className="w-2 h-2 rounded-full bg-primary"></span>
+                  <span>发送 "显示表格" - 查看表格数据</span>
+                </div>
+              </div>
             </CardContent>
           </Card>
         </div>
