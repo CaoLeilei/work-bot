@@ -1,11 +1,14 @@
 "use client"
 
 import { useState } from "react"
-import { Search, Code2, FileText, Image, Calculator, Calendar, MessageSquare, Clock, Zap } from "lucide-react"
+import { Search, Code2, FileText, Calculator, Calendar, MessageSquare, Clock, Zap, Image as ImageIcon } from "lucide-react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
+import { ImageCompressDialog } from "@/components/dialogs/image-compress-dialog"
+import { ImageEditorDialog } from "@/components/dialogs/image-editor-dialog"
+import { ImageConvertDialog } from "@/components/dialogs/image-convert-dialog"
 
 const tools = [
   {
@@ -15,6 +18,7 @@ const tools = [
     icon: <Code2 className="h-6 w-6" />,
     category: "开发",
     popular: true,
+    hasDialog: false,
   },
   {
     id: 2,
@@ -23,58 +27,107 @@ const tools = [
     icon: <FileText className="h-6 w-6" />,
     category: "写作",
     popular: true,
+    hasDialog: false,
   },
   {
     id: 3,
-    name: "图片处理",
-    description: "图片格式转换、压缩、裁剪等处理工具",
-    icon: <Image className="h-6 w-6" />,
+    name: "图片压缩",
+    description: "批量压缩图片，智能减小文件体积",
+    icon: <ImageIcon className="h-6 w-6" />,
     category: "图像",
     popular: false,
+    hasDialog: true,
+    dialog: <ImageCompressDialog />,
   },
   {
     id: 4,
+    name: "图片编辑",
+    description: "裁切、旋转、调整亮度对比度，添加文字",
+    icon: <ImageIcon className="h-6 w-6" />,
+    category: "图像",
+    popular: true,
+    hasDialog: true,
+    dialog: <ImageEditorDialog />,
+  },
+  {
+    id: 5,
+    name: "图片格式转换",
+    description: "批量转换图片格式，支持多种格式互转",
+    icon: <ImageIcon className="h-6 w-6" />,
+    category: "图像",
+    popular: false,
+    hasDialog: true,
+    dialog: <ImageConvertDialog />,
+  },
+  {
+    id: 6,
     name: "计算器",
     description: "支持复杂数学运算和科学计算",
     icon: <Calculator className="h-6 w-6" />,
     category: "工具",
     popular: false,
+    hasDialog: false,
   },
   {
-    id: 5,
+    id: 7,
     name: "日程管理",
     description: "智能日程安排和提醒功能",
     icon: <Calendar className="h-6 w-6" />,
     category: "效率",
     popular: true,
+    hasDialog: false,
   },
   {
-    id: 6,
+    id: 8,
     name: "对话摘要",
     description: "提取对话关键信息和生成摘要",
     icon: <MessageSquare className="h-6 w-6" />,
     category: "AI",
     popular: true,
+    hasDialog: false,
   },
   {
-    id: 7,
+    id: 9,
     name: "时间追踪",
     description: "记录和分析时间使用情况",
     icon: <Clock className="h-6 w-6" />,
     category: "效率",
     popular: false,
+    hasDialog: false,
   },
   {
-    id: 8,
+    id: 10,
     name: "快捷指令",
     description: "自定义快捷命令提高工作效率",
     icon: <Zap className="h-6 w-6" />,
     category: "工具",
     popular: true,
+    hasDialog: false,
   },
 ]
 
 const categories = ["全部", "开发", "写作", "图像", "工具", "效率", "AI"]
+
+const ToolCard = ({ tool }: { tool: typeof tools[0] }) => {
+  return (
+    <Card className="cursor-pointer hover:shadow-lg transition-all hover:-translate-y-1">
+      <CardHeader className="pb-3">
+        <div className="flex items-center justify-between mb-2">
+          <div className="text-primary">{tool.icon}</div>
+          {tool.popular && <Badge variant="secondary" className="text-xs">热门</Badge>}
+          {!tool.popular && <Badge variant="outline" className="text-xs">{tool.category}</Badge>}
+        </div>
+        <CardTitle className="text-lg">{tool.name}</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <CardDescription className="text-sm mb-4">{tool.description}</CardDescription>
+        {tool.hasDialog && tool.dialog && (
+          <div>{tool.dialog}</div>
+        )}
+      </CardContent>
+    </Card>
+  )
+}
 
 export default function ToolsPage() {
   const [searchQuery, setSearchQuery] = useState("")
@@ -122,21 +175,7 @@ export default function ToolsPage() {
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {popularTools.map((tool) => (
-            <Card
-              key={tool.id}
-              className="cursor-pointer hover:shadow-lg transition-all hover:-translate-y-1 border-primary/20"
-            >
-              <CardHeader className="pb-3">
-                <div className="flex items-center justify-between mb-2">
-                  <div className="text-primary">{tool.icon}</div>
-                  <Badge variant="secondary" className="text-xs">热门</Badge>
-                </div>
-                <CardTitle className="text-lg">{tool.name}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <CardDescription className="text-sm">{tool.description}</CardDescription>
-              </CardContent>
-            </Card>
+            <ToolCard key={tool.id} tool={tool} />
           ))}
         </div>
       </div>
@@ -161,21 +200,7 @@ export default function ToolsPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {filteredTools.map((tool) => (
-            <Card
-              key={tool.id}
-              className="cursor-pointer hover:shadow-lg transition-all hover:-translate-y-1"
-            >
-              <CardHeader className="pb-3">
-                <div className="flex items-center justify-between mb-2">
-                  <div className="text-primary">{tool.icon}</div>
-                  <Badge variant="outline" className="text-xs">{tool.category}</Badge>
-                </div>
-                <CardTitle className="text-lg">{tool.name}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <CardDescription className="text-sm">{tool.description}</CardDescription>
-              </CardContent>
-            </Card>
+            <ToolCard key={tool.id} tool={tool} />
           ))}
         </div>
 
